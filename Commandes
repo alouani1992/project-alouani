@@ -1,0 +1,36 @@
+creation controller: symfony console make:cont nom_controller
+creation entité: symfony console make:ent nom_entité
+Pour créer la migration : symfony console make:migration
+symfony console doctrine:migrations:migrate --no-interaction
+Pour mettre à jour le schema symfony console  doctrine:schema:update --force
+
+pour acceder au repository :  $pins = $em->getRepository(App:Pin)
+EntityManagerInterface a passer en paramtere : ma_methode (EntityManagerInterface $em) => use Doctrine\ORM\EntityManagerInterface;
+Pour utliser directement le repository : use App\Repository\ClientRepository => mettre en parametre de la methode : ClientRepository $rep
+
+Redirection vers une route => $this->redirectToRoute('about');
+Pour definir un domaine local :
+1-symfony proxy:start
+2- modifier dans proxy http://127.0.0.1:7080/proxy.pac "adresse du script"
+3- symfony proxy:domain:attach ma-boutique
+Pour recupérer le contenu du post ou get du formulaire :
+//post
+        if($request->isMethod('POST')){
+            dd($request->request->get('title'));
+            dd($request->request->all());
+        }
+        //get
+                    dd($request->query->get('title'));
+                     Pour voir toutes les routes : symfony console debug:router
+Executer une commande dans le console : symfony console doctrine:query:sql "delete from client"
+les filtres twig expl : si je veux compter la taille du tableau {% $variable|length %}
+Si je veux passer un param de route , il faut avoir le meme au nom au niveau de la route
+que le param de l'action
+la fonction path de twig prend en param le nom de la route !!
+Pour rechercher sans passer par le repository :
+  exemple:   function show(Client $pin): Response
+    {
+        dd($pin);
+        il faut installer ceci : SensioFrameworkExtraBundle
+        avec cette commande : composer require annotations
+        dans twig : les liens peuvent etre crées par path : pour un chemin relatif ou par url pour un chemin absolu
